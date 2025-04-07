@@ -7,14 +7,14 @@ from models import Base, User, Listing, Category, get_engine, get_session_maker
 class DBStore:
     """ORM-based database storage implementation - 純粹的數據存取層"""
     
-    def __init__(self, db_url):
+    def __init__(self, db_url: str):
         """Initialize storage with database URL"""
         self.engine = get_engine(db_url)
         Base.metadata.create_all(self.engine)
         self.Session = get_session_maker(self.engine)
         self.next_id = self._get_next_id()
     
-    def _get_next_id(self):
+    def _get_next_id(self) -> int:
         """Get next available listing ID"""
         session = self.Session()
         try:
@@ -24,7 +24,7 @@ class DBStore:
             session.close()
     
     # User methods
-    def save_user(self, username):
+    def save_user(self, username: str) -> tuple[bool, str | None]:
         """儲存新用戶，返回是否成功和可能的錯誤"""
         session = self.Session()
         try:
@@ -38,7 +38,7 @@ class DBStore:
         finally:
             session.close()
     
-    def find_user_by_username(self, username):
+    def find_user_by_username(self, username: str) -> User | None:
         """根據用戶名查詢用戶"""
         session = self.Session()
         try:
@@ -47,7 +47,7 @@ class DBStore:
             session.close()
     
     # Listing methods
-    def save_listing(self, listing_data):
+    def save_listing(self, listing_data: dict) -> tuple[int | None, str | None]:
         """儲存新列表"""
         session = self.Session()
         try:
@@ -80,7 +80,7 @@ class DBStore:
         finally:
             session.close()
     
-    def find_listing_by_id(self, listing_id):
+    def find_listing_by_id(self, listing_id: int) -> dict | None:
         """根據 ID 查詢列表"""
         session = self.Session()
         try:
@@ -103,7 +103,7 @@ class DBStore:
         finally:
             session.close()
     
-    def delete_listing_by_id(self, listing_id):
+    def delete_listing_by_id(self, listing_id: int) -> tuple[bool, str | None]:
         """根據 ID 刪除列表"""
         session = self.Session()
         try:
@@ -131,7 +131,7 @@ class DBStore:
             session.close()
     
     # Category methods
-    def find_category_by_name(self, category_name):
+    def find_category_by_name(self, category_name: str) -> Category | None:
         """根據名稱查詢類別"""
         session = self.Session()
         try:
@@ -139,7 +139,7 @@ class DBStore:
         finally:
             session.close()
     
-    def save_category(self, category_data):
+    def save_category(self, category_data: dict) -> tuple[bool, str | None]:
         """儲存類別"""
         session = self.Session()
         try:
@@ -156,7 +156,7 @@ class DBStore:
         finally:
             session.close()
     
-    def update_category(self, category_name, updates):
+    def update_category(self, category_name: str, updates: dict) -> tuple[bool, str | None]:
         """更新類別信息"""
         session = self.Session()
         try:
@@ -176,7 +176,7 @@ class DBStore:
         finally:
             session.close()
     
-    def delete_category(self, category_name):
+    def delete_category(self, category_name: str) -> tuple[bool, str | None]:
         """刪除類別"""
         session = self.Session()
         try:
@@ -193,7 +193,7 @@ class DBStore:
         finally:
             session.close()
     
-    def find_listings_by_category(self, category_name):
+    def find_listings_by_category(self, category_name: str) -> list[dict]:
         """查詢特定類別的所有列表"""
         session = self.Session()
         try:
@@ -217,7 +217,7 @@ class DBStore:
             session.close()
     
     # 在 DBStore (persistence 層) 中
-    def find_categories_with_max_listing_count(self):
+    def find_categories_with_max_listing_count(self) -> list[dict]:
         """查詢具有最大列表數量的所有類別"""
         session = self.Session()
         try:
@@ -241,7 +241,7 @@ class DBStore:
         finally:
             session.close()
     
-    def synchronize_category_counts(self):
+    def synchronize_category_counts(self) -> tuple[bool, str | None]:
         """同步所有類別的 listing_count 與實際的 Listing 數量"""
         session = self.Session()
         try:

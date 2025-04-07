@@ -1,10 +1,11 @@
 import datetime
+from typing import Tuple, Optional
 
 class CategoryService:
     def __init__(self, store):
         self.store = store
     
-    def get_category_listings(self, username, category):
+    def get_category_listings(self, username: str, category: str) -> Tuple[str, Optional[str]]:
         """獲取類別下的所有列表"""
         # 驗證用戶
         user = self.store.find_user_by_username(username)
@@ -36,7 +37,7 @@ class CategoryService:
         
         return "\n".join(result), None
     
-    def get_top_category(self, username):
+    def get_top_category(self, username: str) -> Tuple[str, Optional[str]]:
         """獲取列表數量最多的類別"""
         # 驗證用戶
         user = self.store.find_user_by_username(username)

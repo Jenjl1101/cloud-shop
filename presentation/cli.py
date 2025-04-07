@@ -1,5 +1,6 @@
 import shlex
 import re
+from typing import Tuple, Optional
 
 class CLI:
     def __init__(self, user_service, listing_service, category_service):
@@ -7,15 +8,14 @@ class CLI:
         self.listing_service = listing_service
         self.category_service = category_service
     
-    def parse_command(self, command):
+    def parse_command(self, command: str) -> list[str]:
         """正確解析命令字串，處理單引號與雙引號的內容"""
         pattern = r'(\w+|"(?:[^"]*)"|\'(?:[^\']*)\')'
         matches = re.findall(pattern, command)
         # 移除引號
         return [m.strip("'\"") for m in matches]
 
-
-    def process_command(self, command):
+    def process_command(self, command: str) -> str:
         """處理用戶命令"""
         args = self.parse_command(command)
 
