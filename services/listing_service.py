@@ -59,7 +59,7 @@ class ListingService:
         else:
             created_at = created_at.strftime("%Y-%m-%d %H:%M:%S")
         
-        return f"{listing['title']}|{listing['description']}|{listing['price']}|{created_at}|{listing['category']}|{listing['username']}", None
+        return f"{listing['title']}|{listing['price']}|{created_at}|{listing['category']}|{listing['username']}", None
     
     def delete_listing(self, username, listing_id):
         """刪除列表"""
