@@ -1,10 +1,11 @@
 import datetime
+from typing import Tuple, Optional
 
 class ListingService:
     def __init__(self, store):
         self.store = store
     
-    def create_listing(self, username, title, description, price, category):
+    def create_listing(self, username: str, title: str, description: str, price: float, category: str) -> Tuple[str, Optional[str]]:
         """創建新列表"""
         # 驗證用戶
         user = self.store.find_user_by_username(username)
@@ -36,7 +37,7 @@ class ListingService:
         
         return str(listing_id), None
     
-    def get_listing(self, username, listing_id):
+    def get_listing(self, username: str, listing_id: int) -> Tuple[str, Optional[str]]:
         """獲取列表詳情"""
         # 驗證用戶
         user = self.store.find_user_by_username(username)
@@ -61,7 +62,7 @@ class ListingService:
         
         return f"{listing['title']}|{listing['description']}|{listing['price']}|{created_at}|{listing['category']}|{listing['username']}", None
     
-    def delete_listing(self, username, listing_id):
+    def delete_listing(self, username: str, listing_id: int) -> Tuple[str, Optional[str]]:
         """刪除列表"""
         # 驗證用戶
         user = self.store.find_user_by_username(username)

@@ -1,4 +1,4 @@
-name: Test README Steps
+name: Test examples
 
 on:
   push:
