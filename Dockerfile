@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . /app/
 
 # 安裝依賴套件
-RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install --no-cache-dir -r requirements.txt
 
 # 確保腳本可執行
 RUN chmod +x cloudshop.py run.sh
