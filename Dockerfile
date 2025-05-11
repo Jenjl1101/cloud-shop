@@ -5,7 +5,7 @@ FROM python:3.10-slim
 WORKDIR /app
 
 # 複製應用程式檔案
-COPY . /app/
+# COPY . /app/
 
 # 安裝依賴套件
 RUN pip install --no-cache-dir -r requirements.txt
