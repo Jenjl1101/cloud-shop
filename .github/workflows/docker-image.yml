@@ -49,5 +49,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/cloud2025:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/cloud2025:${{ github.sha }}
+            ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:${{ github.sha }}
