@@ -43,11 +43,19 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push Docker image
+      - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
           context: .
-          push: true
+          push: false
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:${{ github.sha }}
+
+      - name: Push Docker image (latest)
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:latest
+
+      - name: Push Docker image (commit sha)
+        run: |
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:${{ github.sha }}
