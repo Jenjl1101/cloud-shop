@@ -19,6 +19,34 @@ The script will:
 - Remove the existing `cloudshop.db` database file (if present)
 - Ensure `cloudshop.py` and `run.sh` are executable
 
+---
+
+### 🐳 Build and Run with Docker
+
+You can also use Docker to build and run this project, without manually running `build.sh`.
+
+**Build the image:**
+```sh
+docker build -t cloudshop .
+```
+
+**Run the container:**
+```sh
+docker run -it cloudshop
+```
+
+**Run commands from a file:**
+```sh
+docker run -i cloudshop < commands.txt
+```
+
+**Mount a host folder to the container (e.g., to persist the database):**
+```sh
+docker run -it -v $(pwd):/app cloudshop
+```
+
+---
+
 ## Running
 
 Before running, ensure the virtual environment has been set up by executing `build.sh`. Then, start the application using:
