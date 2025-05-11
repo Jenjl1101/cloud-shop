@@ -19,9 +19,29 @@ The script will:
 - Remove the existing `cloudshop.db` database file (if present)
 - Ensure `cloudshop.py` and `run.sh` are executable
 
----
+## Running
 
-### 🐳 Build and Run with Docker
+Before running, ensure the virtual environment has been set up by executing `build.sh`. Then, start the application using:
+```sh
+./run.sh
+```
+This will:
+- Verify that the virtual environment (`venv/`) exists
+- Activate the virtual environment
+- Run `cloudshop.py`
+- Deactivate the virtual environment upon exit
+
+You can also process commands from a file:
+```sh
+cat commands.txt | ./run.sh
+```
+or use:
+```sh
+./run.sh < commands.txt | tee output.log
+```
+to write the STDIN to a file.
+
+## 🐳 Build and Run with Docker
 
 You can also use Docker to build and run this project, without manually running `build.sh`.
 
@@ -45,29 +65,14 @@ docker run -i cloudshop < commands.txt
 docker run -it -v $(pwd):/app cloudshop
 ```
 
----
+### Docker Image Tagging Logic
 
-## Running
+The Docker images for this project are tagged using the following logic:
 
-Before running, ensure the virtual environment has been set up by executing `build.sh`. Then, start the application using:
-```sh
-./run.sh
-```
-This will:
-- Verify that the virtual environment (`venv/`) exists
-- Activate the virtual environment
-- Run `cloudshop.py`
-- Deactivate the virtual environment upon exit
+- `latest`: This tag is used for the most recent successful build from the `main` branch. It represents the latest stable version of the application.
+- `<commit-sha>`: Each build is also tagged with the first seven characters of the commit SHA. This allows you to reference a specific version of the application based on the exact state of the code at the time of the build.
 
-You can also process commands from a file:
-```sh
-cat commands.txt | ./run.sh
-```
-or use:
-```sh
-./run.sh < commands.txt | tee output.log
-```
-to write the STDIN to a file.
+These tags are automatically applied during the GitHub Actions workflow, which tests, builds, and pushes the Docker image to DockerHub. You can find the images on DockerHub under the repository `${{ secrets.DOCKERHUB_USERNAME }}/2025cloud`.
 
 ## Commands
 

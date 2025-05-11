@@ -51,9 +51,3 @@ jobs:
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/2025cloud:${{ github.sha }}
-
-      - name: Add DockerHub image link to summary
-        run: |
-          echo "### DockerHub Image Links" >> $GITHUB_STEP_SUMMARY
-          echo "- [latest](https://hub.docker.com/r/${{ secrets.DOCKERHUB_USERNAME }}/2025cloud/tags?name=latest)" >> $GITHUB_STEP_SUMMARY
-          echo "- [${GITHUB_SHA:0:7}](https://hub.docker.com/r/${{ secrets.DOCKERHUB_USERNAME }}/2025cloud/tags?name=${GITHUB_SHA})" >> $GITHUB_STEP_SUMMARY
